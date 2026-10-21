@@ -262,7 +262,7 @@ public final class LockPlugin extends JavaPlugin implements Listener, TabExecuto
         for (int i = 0; i + 1 < kv.length; i += 2) {
             t = t.replace("{" + kv[i] + "}", kv[i + 1]);
         }
-        p.getOpenInventory().setTitle(LEGACY.deserialize(t));
+        p.getOpenInventory().setTitle(LegacyComponentSerializer.legacySection().serialize(LEGACY.deserialize(t)));
     }
 
     /** اللاعب ضغط على الورقة: نقرا اللي كتبه ونتأكد منه. */
