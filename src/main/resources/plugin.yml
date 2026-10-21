@@ -1,0 +1,27 @@
+name: GawharaLock
+version: 1.0.0
+main: net.gawhara.lock.LockPlugin
+api-version: '26.1'
+author: GawharaSMP
+description: باسورد للسيرفر، محدش يلعب غير اللي يعرف الباسورد
+commands:
+  glock:
+    description: ادخل باسورد السيرفر
+    usage: /glock <الباسورد>
+    aliases: [lpass]
+    permission: gawharalock.use
+  glockadmin:
+    description: إدارة بوابة الباسورد
+    usage: /glockadmin <set|off|status|list|revoke|verify|reload>
+    aliases: [ladmin]
+    permission: gawharalock.admin
+permissions:
+  gawharalock.use:
+    description: يدخل الباسورد
+    default: true
+  gawharalock.admin:
+    description: يحط ويغيّر الباسورد ويدير اللاعبين
+    default: op
+  gawharalock.bypass:
+    description: يدخل من غير باسورد
+    default: false

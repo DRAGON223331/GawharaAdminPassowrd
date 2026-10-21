@@ -1,0 +1,63 @@
+# ===== GawharaLock 1.0 =====
+# السيرفر بيتقفل بباسورد. اللاعب أول ما يدخل بتطلعله شاشة سودا وفي نصها خانة،
+# يكتب فيها الباسورد ويضغط على الورقة (أو زرار الأخضر). من غير أمر.
+# قبلها بيفضل متجمد (مبيتحركش، مبيكتبش، مبيكسرش، مبيتضربش) وبيتطرد بعد المهلة.
+# الباسورد بيتخزن مشفّر (PBKDF2) في data.yml، مفيش حد يقدر يقراه.
+
+lock:
+  # permanent = اللاعب يدخل الباسورد مرة واحدة ويتفتحله على طول (لحد ما الباسورد يتغيّر)
+  # session   = يدخله كل مرة يدخل فيها السيرفر
+  remember: permanent
+  # أقل طول للباسورد
+  min-length: 4
+  # بعد كام ثانية من غير باسورد يتطرد (0 = مفيش مهلة)
+  timeout-seconds: 60
+  # محاولات غلط قبل الطرد
+  max-attempts: 3
+  # بعد الطرد بسبب محاولات غلط، يستنى كام دقيقة قبل ما يدخل تاني
+  lockout-minutes: 5
+  # أمر /glock <الباسورد> كاحتياطي لو الشاشة مشتغلتش عند لاعب (مش بيظهر لحد). false لقفله.
+  fallback-command: true
+  # الأوامر المسموحة قبل إدخال الباسورد (بدون /). زوّد أوامر بلجن اللوجن لو عندك.
+  allowed-commands: [glock, lpass, login, register, l, reg]
+
+# شكل الشاشة. الرسايل جواها بالإنجليزي عشان تظهر سليمة عند Bedrock (العناوين العربي ممكن تظهر مقطّعة).
+ui:
+  # شاشة سودا (تأثير Blindness) ورا الخانة
+  black-screen: true
+  title: "&8Enter Password"
+  title-empty: "&cType the password first"
+  title-wrong: "&cWrong password ({left} left)"
+  confirm-name: "&aEnter"
+  item-lore:
+    - "&7Type the password in the box above,"
+    - "&7then click this paper."
+
+messages:
+  prefix: "&8[&6بوابة&8] &r"
+  locked: "&cالسيرفر محمي بباسورد. اكتب الباسورد في الخانة واضغط على الورقة."
+  blocked-command: "&cمينفعش تستخدم الأمر ده قبل ما تدخل الباسورد."
+  usage: "&cاستخدم: &e/glock <الباسورد>"
+  command-disabled: "&cاكتب الباسورد في الشاشة اللي ظهرتلك."
+  no-password-set: "&aمفيش باسورد متفعّل دلوقتي، العب عادي."
+  already: "&aإنت داخل بالفعل."
+  success: "&aالباسورد صح، أهلاً بيك!"
+  wrong: "&cالباسورد غلط. فاضلك &e{left}&c محاولة."
+  # رسايل الطرد بالإنجليزي عشان تظهر سليمة عند لاعبين Bedrock
+  kick-wrong: "&cWrong password too many times. Try again in {minutes} minutes."
+  kick-timeout: "&cYou did not enter the server password in time."
+  kick-lockout: "&cToo many wrong attempts. Try again in {minutes} minutes."
+  players-only: "الأمر ده للاعبين بس."
+  no-permission: "&cمعندكش صلاحية."
+  admin-usage: "&cاستخدم: &e/glockadmin <set <باسورد>|off|status|list|revoke <لاعب>|verify <لاعب>|reload>"
+  pw-too-short: "&cالباسورد قصير، الحد الأدنى {min} حروف."
+  pw-set: "&aاتحط الباسورد الجديد. أي لاعب غيرك لازم يدخله تاني."
+  pw-off: "&eالباسورد اتقفل، السيرفر مفتوح للكل."
+  status: "&7الباسورد: &e{state}&7 | داخلين: &e{verified}&7 | مستنيين دلوقتي: &e{waiting}"
+  list-header: "&6اللاعبين اللي معاهم الباسورد ({count}):"
+  list-empty: "&7مفيش حد لسه."
+  revoked: "&aاتسحب الباسورد من &e{player}&a، هيدخله تاني."
+  verified: "&aفتحت لـ &e{player}&a من غير باسورد."
+  not-found: "&cمش لاقي اللاعب ده."
+  no-password: "&cمفيش باسورد متفعّل. استخدم &e/glockadmin set <باسورد>"
+  reloaded: "&aاتعمل reload للإعدادات."
